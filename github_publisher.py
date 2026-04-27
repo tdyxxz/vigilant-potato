@@ -15,6 +15,8 @@ GITHUB_API_ROOT = "https://api.github.com"
 RUNTIME_SYNC_PATHS = (
     ".gitignore",
     "README.md",
+    "index.html",
+    "article.html",
     "requirements.txt",
     "main.py",
     "github_publisher.py",
