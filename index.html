@@ -372,6 +372,10 @@
       const topic = titleCase(normalizeTopic(entry));
       const loweredTopic = topic.toLowerCase();
       const sourceKey = derivePrimarySource(entry);
+      const summary = (entry.summary || "").trim();
+      if (summary && !summary.toLowerCase().includes("observed activity suggests")) {
+        return summary;
+      }
       let source = "online attention";
       if (sourceKey === "google_trends") {
         source = "Google search activity";
