@@ -5,6 +5,7 @@ import atexit
 from datetime import datetime, timezone
 import json
 import logging
+import os
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -16,7 +17,7 @@ from collectors.wikipedia_views import fetch_wikipedia_top_pages
 from content.article_generator import article_record_to_dict, article_record_to_markdown, build_article_record
 from content.seo_builder import build_seo_metadata
 from detection.trend_detector import derive_detection_threshold, detect_emerging_topics
-from github_publisher import publish_generated_articles, sync_runtime_files
+from github_publisher import publish_generated_articles, refresh_remote_index_from_posts, sync_runtime_files
 from processing.merge_signals import merge_signals
 from processing.normalize import is_high_quality_topic, normalize_signals
 from processing.saturation import estimate_saturation
@@ -70,6 +71,7 @@ def startup_log_message(command: str) -> str:
         "rebuild-manifest": "Starting history manifest rebuild",
         "publish": "Starting GitHub publish-only command",
         "sync-repo": "Starting GitHub repository sync",
+        "refresh-site-index": "Starting remote site index refresh",
     }
     return messages.get(command, f"Starting command: {command}")
 
@@ -427,6 +429,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     add_shared_output_arg(sync_parser)
 
+    refresh_index_parser = subparsers.add_parser(
+        "refresh-site-index",
+        help="Refresh remote index.json summaries from published markdown already in the GitHub repository.",
+    )
+    add_shared_output_arg(refresh_index_parser)
+
     parser.set_defaults(
         command="run",
         output_dir="output",
@@ -470,6 +478,13 @@ def main() -> None:
                 len(sync_result["synced_paths"]),
                 len(sync_result["failed_paths"]),
             )
+            return
+        if args.command == "refresh-site-index":
+            refreshed_entries = refresh_remote_index_from_posts(
+                os.getenv("PUBLISH_REPO", ""),
+                os.getenv("GH_PUBLISH_TOKEN", ""),
+            )
+            logging.info("Remote site index refresh completed with %s refreshed entry(s)", len(refreshed_entries))
             return
 
         raw_signals: list[dict] = []
