@@ -63,6 +63,17 @@ def _slugify(value: str) -> str:
     return "-".join("".join(char.lower() if char.isalnum() else " " for char in value).split())[:80] or "topic"
 
 
+def startup_log_message(command: str) -> str:
+    messages = {
+        "run": "Starting viral signal aggregation pipeline",
+        "backfill-history": "Starting history backfill maintenance",
+        "rebuild-manifest": "Starting history manifest rebuild",
+        "publish": "Starting GitHub publish-only command",
+        "sync-repo": "Starting GitHub repository sync",
+    }
+    return messages.get(command, f"Starting command: {command}")
+
+
 def run_collector(name: str, collector: Callable[[], list[dict]]) -> tuple[list[dict], dict[str, object]]:
     try:
         signals = collector()
@@ -435,7 +446,7 @@ def main() -> None:
         top_n=args.top_n,
     )
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-    logging.info("Starting viral signal aggregation pipeline")
+    logging.info(startup_log_message(args.command))
     acquire_run_lock(config)
 
     try:
