@@ -343,9 +343,25 @@
       return VERBS[total % VERBS.length];
     }
 
+    function isLikelyPersonName(topic) {
+      const parts = topic.split(" ").filter(Boolean);
+      return parts.length >= 2 && parts.length <= 3 && parts.every((part) => /^[A-Za-z]+$/.test(part));
+    }
+
     function buildHeadline(entry) {
       const topic = normalizeTopic(entry);
       const verb = pickVerb(entry.slug || entry.title || topic);
+      const lowered = topic.toLowerCase();
+
+      if (lowered.includes("recall")) {
+        return `${topic.toUpperCase()} GAINS TRACTION ONLINE`;
+      }
+      if (lowered.includes("cause of death") || lowered.includes("death")) {
+        return `${topic.toUpperCase()} SEARCHES SPIKE ONLINE`;
+      }
+      if (isLikelyPersonName(topic)) {
+        return `${topic.toUpperCase()} BACK IN SPOTLIGHT AS SEARCHES SPIKE`;
+      }
       if (topic.split(" ").length <= 3) {
         return `${topic.toUpperCase()} ${verb} IN ONLINE SEARCHES`;
       }
@@ -362,6 +378,12 @@
         source = "Wikipedia traffic";
       } else if (summary.includes("reddit")) {
         source = "online chatter";
+      }
+      if (summary.toLowerCase().includes("recall")) {
+        return `Fresh search momentum is pushing the ${topic} story back into view.`;
+      }
+      if (isLikelyPersonName(topic)) {
+        return `${topic} is drawing a fresh burst of attention as ${source.toLowerCase()} heats up.`;
       }
       return `${source} is driving fresh attention around ${topic}.`;
     }
