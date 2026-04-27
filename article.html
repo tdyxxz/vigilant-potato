@@ -276,9 +276,24 @@
       return VERBS[total % VERBS.length];
     }
 
+    function isLikelyPersonName(topic) {
+      const parts = topic.split(" ").filter(Boolean);
+      return parts.length >= 2 && parts.length <= 3 && parts.every((part) => /^[A-Za-z]+$/.test(part));
+    }
+
     function buildHeadline(topic, slug) {
       const cleanTopic = topic.trim();
+      const lowered = cleanTopic.toLowerCase();
       const verb = pickVerb(slug || cleanTopic);
+      if (lowered.includes("recall")) {
+        return `${cleanTopic.toUpperCase()} GAINS TRACTION ONLINE`;
+      }
+      if (lowered.includes("cause of death") || lowered.includes("death")) {
+        return `${cleanTopic.toUpperCase()} SEARCHES SPIKE ONLINE`;
+      }
+      if (isLikelyPersonName(cleanTopic)) {
+        return `${cleanTopic.toUpperCase()} BACK IN SPOTLIGHT AS SEARCHES SPIKE`;
+      }
       if (cleanTopic.split(" ").length <= 3) {
         return `${cleanTopic.toUpperCase()} SURGES IN ONLINE SEARCHES`;
       }
@@ -325,10 +340,22 @@
     }
 
     function buildHook(topic, sourceInfo) {
+      if (topic.toLowerCase().includes("recall")) {
+        return `Online interest in the ${topic} story is climbing fast, with fresh data showing a sharp rise in ${sourceInfo.phrase}.`;
+      }
+      if (isLikelyPersonName(topic)) {
+        return `${topic} is back in the online spotlight, with new data showing a rapid jump in ${sourceInfo.phrase}.`;
+      }
       return `Online interest in ${topic} is rapidly climbing, with new data showing a sharp spike in ${sourceInfo.phrase}.`;
     }
 
     function buildSubheadline(topic, sourceInfo) {
+      if (topic.toLowerCase().includes("recall")) {
+        return `${sourceInfo.label} is helping push the recall story back into the headlines.`;
+      }
+      if (isLikelyPersonName(topic)) {
+        return `${sourceInfo.label} is fueling a fresh burst of attention around ${topic}.`;
+      }
       return `${sourceInfo.label} is driving a fresh burst of attention around ${topic}.`;
     }
 
