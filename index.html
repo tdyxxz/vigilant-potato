@@ -388,6 +388,64 @@
       return `${source} is driving fresh attention around ${topic}.`;
     }
 
+    function derivePrimarySource(entry) {
+      const summary = entry.summary || "";
+      if (summary.includes("google_trends")) {
+        return "google_trends";
+      }
+      if (summary.includes("wikipedia")) {
+        return "wikipedia";
+      }
+      if (summary.includes("reddit")) {
+        return "reddit";
+      }
+      return "unknown";
+    }
+
+    function sourceWeight(source) {
+      if (source === "google_trends") {
+        return 5;
+      }
+      if (source === "wikipedia") {
+        return 3;
+      }
+      if (source === "reddit") {
+        return 2;
+      }
+      return 1;
+    }
+
+    function urgencyWeight(topic) {
+      const lowered = topic.toLowerCase();
+      if (lowered.includes("recall")) {
+        return 8;
+      }
+      if (lowered.includes("cause of death") || lowered.includes("death")) {
+        return 7;
+      }
+      if (isLikelyPersonName(topic)) {
+        return 6;
+      }
+      return 3;
+    }
+
+    function presentationScore(entry) {
+      const topic = normalizeTopic(entry);
+      const source = derivePrimarySource(entry);
+      const slugScore = (entry.slug || "").length > 18 ? 0.5 : 0;
+      return urgencyWeight(topic) + sourceWeight(source) + slugScore;
+    }
+
+    function sortEntriesForPresentation(entries) {
+      return [...entries].sort((left, right) => {
+        const scoreDelta = presentationScore(right) - presentationScore(left);
+        if (scoreDelta !== 0) {
+          return scoreDelta;
+        }
+        return String(right.timestamp || "").localeCompare(String(left.timestamp || ""));
+      });
+    }
+
     function setStatus(entries) {
       const status = document.getElementById("status");
       status.innerHTML = "";
@@ -453,14 +511,16 @@
         return;
       }
 
-      setStatus(entries);
-      renderHero(entries);
+      const rankedEntries = sortEntriesForPresentation(entries);
+
+      setStatus(rankedEntries);
+      renderHero(rankedEntries);
 
       const content = document.getElementById("content");
       content.className = "grid";
       content.innerHTML = "";
 
-      for (const entry of entries.slice(1)) {
+      for (const entry of rankedEntries.slice(1)) {
         const card = document.createElement("a");
         card.className = "story-card";
         card.href = `./article.html?slug=${encodeURIComponent(entry.slug)}`;
