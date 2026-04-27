@@ -370,16 +370,17 @@
 
     function buildSubheadline(entry) {
       const topic = titleCase(normalizeTopic(entry));
-      const summary = entry.summary || "";
+      const loweredTopic = topic.toLowerCase();
+      const sourceKey = derivePrimarySource(entry);
       let source = "online attention";
-      if (summary.includes("google_trends")) {
+      if (sourceKey === "google_trends") {
         source = "Google search activity";
-      } else if (summary.includes("wikipedia")) {
+      } else if (sourceKey === "wikipedia") {
         source = "Wikipedia traffic";
-      } else if (summary.includes("reddit")) {
+      } else if (sourceKey === "reddit") {
         source = "online chatter";
       }
-      if (summary.toLowerCase().includes("recall")) {
+      if (loweredTopic.includes("recall")) {
         return `Fresh search momentum is pushing the ${topic} story back into view.`;
       }
       if (isLikelyPersonName(topic)) {
