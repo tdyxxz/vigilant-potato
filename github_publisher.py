@@ -10,6 +10,7 @@ import re
 from typing import Any
 
 import requests
+from content.article_generator import generate_article
 
 GITHUB_API_ROOT = "https://api.github.com"
 RUNTIME_SYNC_PATHS = (
@@ -93,6 +94,38 @@ def _decode_json_content(encoded_content: str) -> Any:
 
 def _decode_text_content(encoded_content: str) -> str:
     return base64.b64decode(encoded_content.encode("utf-8")).decode("utf-8")
+
+
+def _extract_topic_from_markdown(markdown: str) -> str:
+    title = _extract_title(markdown, fallback="Article")
+    return re.sub(r"\s+(Surges in Online Searches|Draws Fresh Online Attention|Back in Spotlight as Interest Jumps|Suddenly Back in Focus|Searches Surge Again|Gains Traction Online)$", "", title).strip()
+
+
+def _extract_signal_from_markdown(markdown: str) -> dict[str, Any]:
+    lowered = markdown.lower()
+    source = "google_trends"
+    if "wikipedia" in lowered:
+        source = "wikipedia"
+    elif "reddit" in lowered:
+        source = "reddit"
+
+    formatted_time_match = re.search(r"- ([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9:]{5} UTC)", markdown)
+    formatted_time = formatted_time_match.group(1) if formatted_time_match else "2026-01-01 00:00 UTC"
+    timestamp_match = re.match(r"([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9:]{5}) UTC", formatted_time)
+    if timestamp_match:
+        timestamp = f"{timestamp_match.group(1)}T{timestamp_match.group(2)}:00+00:00"
+    else:
+        timestamp = "2026-01-01T00:00:00+00:00"
+
+    velocity_match = re.search(r"velocity `([\d.]+)`", markdown)
+    velocity = float(velocity_match.group(1)) if velocity_match else 1.0
+    topic = _extract_topic_from_markdown(markdown).lower()
+    return {
+        "topic": topic,
+        "source": source,
+        "velocity": velocity,
+        "timestamp": timestamp,
+    }
 
 
 def file_exists_check(
@@ -273,6 +306,57 @@ def refresh_remote_index_from_posts(
     )
     response.raise_for_status()
     return refreshed_entries
+
+
+def refresh_remote_posts(
+    repo: str,
+    token: str,
+    *,
+    branch: str = "main",
+    target_directory: str = "posts",
+    session: Any = requests,
+) -> list[str]:
+    response = session.get(
+        _contents_url(repo, target_directory),
+        headers=_headers(token),
+        params={"ref": branch},
+        timeout=20,
+    )
+    response.raise_for_status()
+    post_items = response.json()
+    refreshed_paths: list[str] = []
+
+    for item in post_items:
+        path = str(item.get("path") or "")
+        name = str(item.get("name") or "")
+        if not path.endswith(".md") or name == ".keep":
+            continue
+
+        remote_post = file_exists_check(repo, token, path, branch=branch, session=session)
+        if not remote_post or not remote_post.get("content"):
+            continue
+        current_markdown = _decode_text_content(remote_post["content"])
+        if "Observed activity suggests" not in current_markdown:
+            continue
+
+        signal = _extract_signal_from_markdown(current_markdown)
+        regenerated_markdown = generate_article(signal["topic"], [signal])
+        payload = {
+            "message": f"auto: refresh legacy article {name}",
+            "content": base64.b64encode(regenerated_markdown.encode("utf-8")).decode("utf-8"),
+            "branch": branch,
+            "sha": remote_post.get("sha"),
+        }
+        put_response = session.put(
+            _contents_url(repo, path),
+            headers=_headers(token),
+            json=payload,
+            timeout=20,
+        )
+        put_response.raise_for_status()
+        refreshed_paths.append(path)
+
+    return refreshed_paths
 
 
 def sync_repository_file(
