@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Viral Public Data</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --text: #162033;
+      --muted: #5f6c85;
+      --border: #d9e1ef;
+      --accent: #1e63ff;
+      --shadow: 0 12px 32px rgba(16, 24, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .shell {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    .nav {
+      margin-bottom: 18px;
+    }
+
+    .nav a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .article {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .article h1 {
+      margin: 0 0 10px;
+      font-size: 38px;
+      line-height: 1.08;
+    }
+
+    .meta {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content h2 {
+      margin: 28px 0 12px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .content p,
+    .content li {
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .content ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #edf2ff;
+      color: #1546c0;
+      font-family: Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    .message {
+      padding: 24px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .article {
+        padding: 20px;
+      }
+
+      .article h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="nav"><a href="./index.html">Back to article index</a></div>
+    <article class="article" id="article" aria-live="polite">
+      <div class="message">Loading article</div>
+    </article>
+  </main>
+
+  <script>
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function formatInline(value) {
+      const escaped = escapeHtml(value);
+      return escaped.replace(/`([^`]+)`/g, "<code>$1</code>");
+    }
+
+    function renderMarkdown(markdown) {
+      const lines = markdown.split(/\r?\n/);
+      const parts = [];
+      let paragraph = [];
+      let listItems = [];
+
+      function flushParagraph() {
+        if (paragraph.length > 0) {
+          parts.push(`<p>${formatInline(paragraph.join(" "))}</p>`);
+          paragraph = [];
+        }
+      }
+
+      function flushList() {
+        if (listItems.length > 0) {
+          parts.push(`<ul>${listItems.map((item) => `<li>${formatInline(item)}</li>`).join("")}</ul>`);
+          listItems = [];
+        }
+      }
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          flushParagraph();
+          flushList();
+          continue;
+        }
+        if (trimmed.startsWith("# ")) {
+          flushParagraph();
+          flushList();
+          continue;
+        }
+        if (trimmed.startsWith("## ")) {
+          flushParagraph();
+          flushList();
+          parts.push(`<h2>${formatInline(trimmed.slice(3))}</h2>`);
+          continue;
+        }
+        if (trimmed.startsWith("- ")) {
+          flushParagraph();
+          listItems.push(trimmed.slice(2));
+          continue;
+        }
+        flushList();
+        paragraph.push(trimmed);
+      }
+
+      flushParagraph();
+      flushList();
+      return parts.join("");
+    }
+
+    function extractTitle(markdown) {
+      const match = markdown.match(/^#\s+(.+)$/m);
+      return match ? match[1].trim() : "Article";
+    }
+
+    function formatTimestamp(value) {
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) {
+        return value;
+      }
+      return parsed.toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    async function loadArticle() {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get("slug");
+      const container = document.getElementById("article");
+
+      if (!slug) {
+        container.innerHTML = '<div class="message">No article slug was provided.</div>';
+        return;
+      }
+
+      const [indexResponse, articleResponse] = await Promise.all([
+        fetch("./index.json", { cache: "no-store" }),
+        fetch(`./posts/${encodeURIComponent(slug)}.md`, { cache: "no-store" })
+      ]);
+
+      if (!indexResponse.ok) {
+        throw new Error(`Index request failed with ${indexResponse.status}`);
+      }
+      if (!articleResponse.ok) {
+        throw new Error(`Article request failed with ${articleResponse.status}`);
+      }
+
+      const entries = await indexResponse.json();
+      const markdown = await articleResponse.text();
+      const entry = Array.isArray(entries) ? entries.find((item) => item.slug === slug) : null;
+      const title = entry?.title || extractTitle(markdown);
+
+      document.title = `${title} | Viral Public Data`;
+      container.innerHTML = `
+        <h1>${title}</h1>
+        <div class="meta">${entry ? formatTimestamp(entry.timestamp) : ""}</div>
+        <div class="content">${renderMarkdown(markdown)}</div>
+      `;
+    }
+
+    loadArticle().catch((error) => {
+      console.error(error);
+      document.getElementById("article").innerHTML =
+        '<div class="message">The requested article could not be loaded from this repository.</div>';
+    });
+  </script>
+</body>
+</html>
