@@ -17,7 +17,7 @@ from collectors.wikipedia_views import fetch_wikipedia_top_pages
 from content.article_generator import article_record_to_dict, article_record_to_markdown, build_article_record
 from content.seo_builder import build_seo_metadata
 from detection.trend_detector import derive_detection_threshold, detect_emerging_topics
-from github_publisher import publish_generated_articles, refresh_remote_index_from_posts, sync_runtime_files
+from github_publisher import publish_generated_articles, refresh_remote_index_from_posts, refresh_remote_posts, sync_runtime_files
 from processing.merge_signals import merge_signals
 from processing.normalize import is_high_quality_topic, normalize_signals
 from processing.saturation import estimate_saturation
@@ -72,6 +72,7 @@ def startup_log_message(command: str) -> str:
         "publish": "Starting GitHub publish-only command",
         "sync-repo": "Starting GitHub repository sync",
         "refresh-site-index": "Starting remote site index refresh",
+        "refresh-legacy-posts": "Starting remote legacy post refresh",
     }
     return messages.get(command, f"Starting command: {command}")
 
@@ -435,6 +436,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     add_shared_output_arg(refresh_index_parser)
 
+    refresh_posts_parser = subparsers.add_parser(
+        "refresh-legacy-posts",
+        help="Rewrite legacy remote markdown posts into the newer newsroom-style article format.",
+    )
+    add_shared_output_arg(refresh_posts_parser)
+
     parser.set_defaults(
         command="run",
         output_dir="output",
@@ -485,6 +492,13 @@ def main() -> None:
                 os.getenv("GH_PUBLISH_TOKEN", ""),
             )
             logging.info("Remote site index refresh completed with %s refreshed entry(s)", len(refreshed_entries))
+            return
+        if args.command == "refresh-legacy-posts":
+            refreshed_paths = refresh_remote_posts(
+                os.getenv("PUBLISH_REPO", ""),
+                os.getenv("GH_PUBLISH_TOKEN", ""),
+            )
+            logging.info("Remote legacy post refresh completed with %s rewritten post(s)", len(refreshed_paths))
             return
 
         raw_signals: list[dict] = []
