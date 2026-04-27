@@ -1,10 +1,249 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My First Site</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Viral Public Data</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --text: #162033;
+      --muted: #5f6c85;
+      --border: #d9e1ef;
+      --accent: #1e63ff;
+      --accent-soft: #eef4ff;
+      --shadow: 0 12px 32px rgba(16, 24, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 720px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .status-chip {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: grid;
+      gap: 14px;
+      min-height: 220px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: #b8c7e0;
+      box-shadow: 0 16px 40px rgba(16, 24, 40, 0.12);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .message {
+      padding: 24px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello world</h1>
-  <p>If you see this, your site works.</p>
+  <main class="shell">
+    <section class="hero">
+      <div class="pill">Live Signal Index</div>
+      <h1>Viral Public Data</h1>
+      <p>
+        Public attention signals collected from Google Trends, Wikipedia, and Reddit.
+        Each article below is generated from the current monitored activity and published directly from the pipeline.
+      </p>
+    </section>
+
+    <section class="status" id="status">
+      <div class="status-chip">Loading published articles</div>
+    </section>
+
+    <section id="content" class="grid" aria-live="polite"></section>
+  </main>
+
+  <script>
+    function formatTimestamp(value) {
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) {
+        return value;
+      }
+      return parsed.toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    function setStatus(entries) {
+      const status = document.getElementById("status");
+      status.innerHTML = "";
+
+      const total = document.createElement("div");
+      total.className = "status-chip";
+      total.textContent = `${entries.length} published article${entries.length === 1 ? "" : "s"}`;
+      status.appendChild(total);
+
+      if (entries.length > 0) {
+        const latest = document.createElement("div");
+        latest.className = "status-chip";
+        latest.textContent = `Latest update ${formatTimestamp(entries[0].timestamp)}`;
+        status.appendChild(latest);
+      }
+    }
+
+    function renderEmpty(message) {
+      const content = document.getElementById("content");
+      content.className = "";
+      content.innerHTML = `<div class="message">${message}</div>`;
+    }
+
+    async function loadArticles() {
+      const response = await fetch("./index.json", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Index request failed with ${response.status}`);
+      }
+
+      const entries = await response.json();
+      if (!Array.isArray(entries) || entries.length === 0) {
+        setStatus([]);
+        renderEmpty("No published articles are currently available.");
+        return;
+      }
+
+      setStatus(entries);
+      const content = document.getElementById("content");
+      content.className = "grid";
+      content.innerHTML = "";
+
+      for (const entry of entries) {
+        const card = document.createElement("a");
+        card.className = "card";
+        card.href = `./article.html?slug=${encodeURIComponent(entry.slug)}`;
+
+        card.innerHTML = `
+          <div class="pill">Published</div>
+          <h2>${entry.title}</h2>
+          <p>${entry.summary}</p>
+          <div class="meta">
+            <span>${formatTimestamp(entry.timestamp)}</span>
+            <span>${entry.slug}</span>
+          </div>
+        `;
+
+        content.appendChild(card);
+      }
+    }
+
+    loadArticles().catch((error) => {
+      console.error(error);
+      renderEmpty("The site could not load index.json from this repository.");
+    });
+  </script>
 </body>
 </html>
