@@ -10,9 +10,11 @@ from typing import Any
 @dataclass(frozen=True)
 class ArticleRecord:
     title: str
+    subheadline: str
     topic: str
     aliases: list[str]
     summary: str
+    what_to_know: list[str]
     timeline: list[str]
     current_state: str
     related_context: str
@@ -28,6 +30,16 @@ TITLE_DROP_PHRASES = (
     "instead argues researcher",
     "slack messages interviews with current and former works paint picture of company in turmoil",
 )
+SOURCE_NAMES = {
+    "google_trends": "Google Trends",
+    "reddit": "Reddit",
+    "wikipedia": "Wikipedia",
+}
+SOURCE_DESCRIPTIONS = {
+    "google_trends": "search interest",
+    "reddit": "online discussion",
+    "wikipedia": "reader traffic",
+}
 
 
 def _format_timestamp(value: str) -> str:
@@ -79,43 +91,129 @@ def synthesize_headline(topic: str, aliases: list[str] | None = None) -> str:
     return headline[:90].rstrip()
 
 
-def _build_summary(topic: str, source_counts: Counter[str], strongest_signal: dict[str, Any] | None) -> str:
-    leading_source = strongest_signal["source"] if strongest_signal else "unknown"
-    leading_velocity = strongest_signal["velocity"] if strongest_signal else 0.0
+def _human_source_name(source: str) -> str:
+    return SOURCE_NAMES.get(source, source.replace("_", " ").title())
+
+
+def _source_description(source: str) -> str:
+    return SOURCE_DESCRIPTIONS.get(source, "online attention")
+
+
+def _looks_like_person(topic: str) -> bool:
+    words = [word for word in re.split(r"\s+", topic.strip()) if word]
+    return 2 <= len(words) <= 3 and all(word.isalpha() for word in words)
+
+
+def _plain_topic(topic: str) -> str:
+    return re.sub(r"\s+", " ", topic.replace("_", " ")).strip()
+
+
+def _build_news_headline(topic: str, strongest_signal: dict[str, Any] | None, aliases: list[str]) -> str:
+    base = synthesize_headline(topic, [topic]) or synthesize_headline(topic, aliases)
+    lowered = _plain_topic(base).lower()
+    if "recall" in lowered:
+        return f"{base} Gains Traction Online"
+    if "cause of death" in lowered or "death" in lowered:
+        return f"{base} Searches Surge Again"
+    if _looks_like_person(_plain_topic(base)):
+        return f"{base} Back in Spotlight as Interest Jumps"
+    if strongest_signal and strongest_signal["source"] == "google_trends":
+        return f"{base} Surges in Online Searches"
+    if strongest_signal and strongest_signal["source"] == "wikipedia":
+        return f"{base} Draws Fresh Online Attention"
+    return f"{base} Suddenly Back in Focus"
+
+
+def _build_subheadline(topic: str, strongest_signal: dict[str, Any] | None) -> str:
+    plain_topic = _plain_topic(topic)
+    if strongest_signal is None:
+        return f"Fresh online attention is building around {plain_topic}."
+    source_name = _human_source_name(strongest_signal["source"])
+    source_description = _source_description(strongest_signal["source"])
+    return f"{source_name} is driving a fresh wave of {source_description} around {plain_topic}."
+
+
+def _build_summary(topic: str, strongest_signal: dict[str, Any] | None) -> str:
+    plain_topic = _plain_topic(topic)
+    if strongest_signal is None:
+        return f"Fresh online attention is gathering around {plain_topic}, although the reason for the latest burst was not immediately clear."
+    source_description = _source_description(strongest_signal["source"])
     return (
-        f"Observed activity suggests `{topic}` is accelerating across {len(source_counts)} source(s). "
-        f"The strongest measured signal currently comes from `{leading_source}` with normalized velocity `{leading_velocity:.4f}`."
+        f"Online interest in {plain_topic} is climbing sharply, with new data showing a clear jump in {source_description}."
     )
 
 
-def _variant_text(canonical_topic: str, observed_topic: str) -> str:
-    if observed_topic == canonical_topic:
-        return "using the canonical topic label"
-    return f'using the observed variant `{observed_topic}`'
+def _build_subject_context(topic: str, aliases: list[str]) -> str:
+    plain_topic = _plain_topic(topic)
+    lowered = plain_topic.lower()
+    if "recall" in lowered:
+        return (
+            f"The topic appears to center on a consumer recall, a kind of story that often draws attention when shoppers begin looking for updates, warnings or product details."
+        )
+    if "cause of death" in lowered or "death" in lowered:
+        return (
+            f"The spike appears tied to renewed curiosity about the circumstances surrounding {plain_topic}, a pattern that often resurfaces when older stories begin circulating again."
+        )
+    if _looks_like_person(plain_topic):
+        return (
+            f"{plain_topic} appears to be a public figure, and the latest rise suggests that name is suddenly back in wide circulation online."
+        )
+    if len(aliases) > 1:
+        alias_text = ", ".join(_plain_topic(alias) for alias in aliases[1:3])
+        return (
+            f"The topic is also appearing under closely related phrasing such as {alias_text}, suggesting attention is spreading across multiple versions of the same story."
+        )
+    return (
+        f"It was not immediately clear what pushed {plain_topic} higher, but the subject is drawing broader curiosity across the web."
+    )
 
 
-def _source_action(source: str) -> str:
-    actions = {
-        "google_trends": "showed rising search interest",
-        "reddit": "showed discussion momentum",
-        "wikipedia": "showed elevated pageview attention",
-    }
-    return actions.get(source, "showed measurable attention")
+def _build_related_context(topic: str, strongest_signal: dict[str, Any] | None, source_counts: Counter[str]) -> str:
+    plain_topic = _plain_topic(topic)
+    if strongest_signal is None:
+        return f"The latest burst of attention around {plain_topic} appears to be building without a single clear public trigger."
+    source_name = _human_source_name(strongest_signal["source"])
+    source_description = _source_description(strongest_signal["source"])
+    source_total = sum(source_counts.values())
+    if source_total > 1:
+        return (
+            f"The strongest push is currently coming from {source_name}, while other public data points suggest curiosity is spreading beyond a single corner of the internet."
+        )
+    return (
+        f"For now, the clearest sign of momentum is coming from {source_name}, where the latest rise in {source_description} suggests organic curiosity rather than a formal announcement."
+    )
+
+
+def _build_what_to_know(topic: str, strongest_signal: dict[str, Any] | None, source_counts: Counter[str]) -> list[str]:
+    plain_topic = _plain_topic(topic)
+    if strongest_signal is None:
+        return [
+            f"Interest around {plain_topic} is rising.",
+            "The reason for the latest spike is not yet clear.",
+        ]
+    source_name = _human_source_name(strongest_signal["source"])
+    source_description = _source_description(strongest_signal["source"])
+    return [
+        f"Attention around {plain_topic} is increasing quickly.",
+        f"{source_name} is showing the strongest jump in {source_description}.",
+        f"The topic is being picked up across {len(source_counts)} source{'s' if len(source_counts) != 1 else ''}.",
+    ]
 
 
 def _timeline_line(topic: str, signal: dict[str, Any]) -> str:
-    return (
-        f"- {_format_timestamp(signal['timestamp'])}: `{signal['source']}` {_source_action(signal['source'])} "
-        f"with normalized velocity `{signal['velocity']:.4f}` for `{topic}` ({_variant_text(topic, signal['topic'])})"
-    )
+    source_name = _human_source_name(signal["source"])
+    source_description = _source_description(signal["source"])
+    observed_topic = _plain_topic(str(signal["topic"]))
+    plain_topic = _plain_topic(topic)
+    if observed_topic != plain_topic:
+        return f"- {_format_timestamp(signal['timestamp'])}: {source_name} helped push interest higher around {observed_topic}."
+    return f"- {_format_timestamp(signal['timestamp'])}: {source_name} showed a fresh rise in {source_description}."
 
 
-def _evidence_line(topic: str, evidence_item: dict[str, Any]) -> str:
-    return (
-        f"- `{evidence_item['source']}` {_source_action(evidence_item['source'])} at {evidence_item['formatted_time']} "
-        f"with velocity `{evidence_item['velocity']:.4f}` for `{topic}` "
-        f"({_variant_text(topic, evidence_item['observed_topic'])})"
-    )
+def _evidence_line(evidence_item: dict[str, Any]) -> str:
+    source_name = _human_source_name(evidence_item["source"])
+    observed_topic = _plain_topic(str(evidence_item["observed_topic"]))
+    return f"- {source_name} was one of the clearest signs of fresh attention around {observed_topic}."
 
 
 def _build_current_state(
@@ -124,15 +222,13 @@ def _build_current_state(
     source_counts: Counter[str],
     strongest_signal: dict[str, Any] | None,
 ) -> str:
-    source_summary = ", ".join(f"{source} ({count})" for source, count in sorted(source_counts.items()))
-    alias_summary = ", ".join(f"`{alias}`" for alias in aliases[1:4])
+    plain_topic = _plain_topic(topic)
+    alias_text = ", ".join(_plain_topic(alias) for alias in aliases[1:4])
     if strongest_signal is None:
-        return f"No reliable signals were available for `{topic}`."
-    alias_sentence = f" Supporting variants in this cluster include {alias_summary}." if alias_summary else ""
-    return (
-        f"`{topic}` is appearing in the following monitored sources: {source_summary}. "
-        f"The highest current momentum was registered on `{strongest_signal['source']}` {_variant_text(topic, strongest_signal['topic'])}.{alias_sentence}"
-    )
+        return f"Fresh attention is building around {plain_topic}, but the exact spark behind the latest rise remains uncertain."
+    if alias_text:
+        return f"Online conversation around {plain_topic} is also appearing under related phrasing such as {alias_text}, widening the reach of the story."
+    return f"The latest burst suggests {plain_topic} is moving beyond a niche search and into broader public view."
 
 
 def build_article_record(topic: str, supporting_signals: list[dict[str, Any]], aliases: list[str] | None = None) -> ArticleRecord:
@@ -152,45 +248,53 @@ def build_article_record(topic: str, supporting_signals: list[dict[str, Any]], a
             "formatted_time": _format_timestamp(signal["timestamp"]),
             "velocity": round(float(signal["velocity"]), 4),
             "is_canonical_match": signal["topic"] == topic,
+            "note": _evidence_line(
+                {
+                    "source": signal["source"],
+                    "observed_topic": signal["topic"],
+                }
+            ),
         }
         for signal in ordered_signals
     ]
 
     return ArticleRecord(
-        title=synthesize_headline(topic, resolved_aliases),
+        title=_build_news_headline(topic, strongest_signal, resolved_aliases),
+        subheadline=_build_subheadline(topic, strongest_signal),
         topic=topic,
         aliases=resolved_aliases,
-        summary=_build_summary(topic, source_counts, strongest_signal),
+        summary=_build_summary(topic, strongest_signal),
+        what_to_know=_build_what_to_know(topic, strongest_signal, source_counts),
         timeline=timeline_lines,
-        current_state=_build_current_state(topic, resolved_aliases, source_counts, strongest_signal),
-        related_context=(
-            "This article is assembled directly from public activity signals. "
-            "It summarizes observed attention patterns and avoids unverified causal claims."
-        ),
+        current_state=_build_subject_context(topic, resolved_aliases),
+        related_context=_build_related_context(topic, strongest_signal, source_counts),
         evidence=evidence,
     )
 
 
 def article_record_to_markdown(record: ArticleRecord) -> str:
-    evidence_lines = [_evidence_line(record.topic, item) for item in record.evidence[:10]]
+    evidence_lines = [item["note"] for item in record.evidence[:10]]
 
     article = [
         f"# {record.title}",
         "",
+        record.subheadline,
+        "",
         "## Summary",
         record.summary,
+        "",
+        record.current_state,
+        "",
+        record.related_context,
+        "",
+        "## What to Know",
+        *(f"- {item}" for item in record.what_to_know),
         "",
         "## Timeline of Emergence",
         *(record.timeline or ["- No timeline data available."]),
         "",
-        "## What Is Currently Happening",
-        record.current_state,
-        "",
         "## Evidence",
         *(evidence_lines or ["- No evidence records available."]),
-        "",
-        "## Related Context",
-        record.related_context,
         "",
     ]
     return "\n".join(article)
