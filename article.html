@@ -6,14 +6,13 @@
   <title>Viral Public Data</title>
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f5f7fb;
+      --bg: #efefef;
       --panel: #ffffff;
-      --text: #162033;
-      --muted: #5f6c85;
-      --border: #d9e1ef;
-      --accent: #1e63ff;
-      --shadow: 0 12px 32px rgba(16, 24, 40, 0.08);
+      --ink: #0d0d0d;
+      --muted: #5c5c5c;
+      --line: #d8d8d8;
+      --accent: #d71920;
+      --header: #050505;
     }
 
     * {
@@ -22,172 +21,229 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
+      font-family: Arial, system-ui, sans-serif;
+    }
+
+    .topbar {
+      background: var(--header);
+      color: #ffffff;
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .topbar-inner,
+    .shell {
+      width: min(980px, calc(100% - 24px));
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      font-family: Impact, "Arial Black", Arial, sans-serif;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .back-link {
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
     }
 
     .shell {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 20px 64px;
-    }
-
-    .nav {
-      margin-bottom: 18px;
-    }
-
-    .nav a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 700;
+      padding: 18px 0 48px;
     }
 
     .article {
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
       background: var(--panel);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      padding: 20px 20px 26px;
     }
 
-    .article h1 {
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 8px;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .headline {
+      margin: 14px 0 10px;
+      font-family: Impact, "Arial Black", Arial, sans-serif;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.94;
+      text-transform: uppercase;
+    }
+
+    .subheadline {
       margin: 0 0 10px;
-      font-size: 38px;
-      line-height: 1.08;
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 700;
     }
 
     .meta {
-      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
-    .content h2 {
-      margin: 28px 0 12px;
-      font-size: 24px;
-      line-height: 1.2;
+    .hook {
+      font-size: 22px;
+      line-height: 1.38;
+      font-weight: 700;
+      margin: 0 0 18px;
     }
 
-    .content p,
-    .content li {
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
+    .article-body {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(240px, 0.9fr);
+      gap: 18px;
     }
 
-    .content ul {
+    .main-copy {
+      display: grid;
+      gap: 18px;
+    }
+
+    .main-copy p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-family: Impact, "Arial Black", Arial, sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .list {
       margin: 0;
       padding-left: 22px;
     }
 
-    code {
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: #edf2ff;
-      color: #1546c0;
-      font-family: Consolas, monospace;
-      font-size: 0.92em;
+    .list li {
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .numbers-box {
+      padding: 14px;
+      border: 2px solid var(--ink);
+      background: #fafafa;
+    }
+
+    .numbers-box dl {
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .numbers-box dt {
+      margin: 0 0 4px;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .numbers-box dd {
+      margin: 0;
+      font-family: Impact, "Arial Black", Arial, sans-serif;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .panel {
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: #ffffff;
     }
 
     .message {
-      padding: 24px;
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      background: var(--panel);
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: #ffffff;
       color: var(--muted);
       line-height: 1.6;
     }
 
-    @media (max-width: 640px) {
-      .article {
-        padding: 20px;
+    code {
+      padding: 2px 5px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    @media (max-width: 820px) {
+      .article-body {
+        grid-template-columns: 1fr;
       }
 
-      .article h1 {
-        font-size: 30px;
+      .hook {
+        font-size: 20px;
       }
     }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Viral <span>Public</span> Data</div>
+      <a class="back-link" href="./index.html">Back to headlines</a>
+    </div>
+  </header>
+
   <main class="shell">
-    <div class="nav"><a href="./index.html">Back to article index</a></div>
     <article class="article" id="article" aria-live="polite">
       <div class="message">Loading article</div>
     </article>
   </main>
 
   <script>
+    const VERBS = ["surging", "spiking", "soaring", "exploding", "gaining traction"];
+
     function escapeHtml(value) {
-      return value
+      return String(value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
-        .replace(/\"/g, "&quot;")
+        .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
-    }
-
-    function formatInline(value) {
-      const escaped = escapeHtml(value);
-      return escaped.replace(/`([^`]+)`/g, "<code>$1</code>");
-    }
-
-    function renderMarkdown(markdown) {
-      const lines = markdown.split(/\r?\n/);
-      const parts = [];
-      let paragraph = [];
-      let listItems = [];
-
-      function flushParagraph() {
-        if (paragraph.length > 0) {
-          parts.push(`<p>${formatInline(paragraph.join(" "))}</p>`);
-          paragraph = [];
-        }
-      }
-
-      function flushList() {
-        if (listItems.length > 0) {
-          parts.push(`<ul>${listItems.map((item) => `<li>${formatInline(item)}</li>`).join("")}</ul>`);
-          listItems = [];
-        }
-      }
-
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed) {
-          flushParagraph();
-          flushList();
-          continue;
-        }
-        if (trimmed.startsWith("# ")) {
-          flushParagraph();
-          flushList();
-          continue;
-        }
-        if (trimmed.startsWith("## ")) {
-          flushParagraph();
-          flushList();
-          parts.push(`<h2>${formatInline(trimmed.slice(3))}</h2>`);
-          continue;
-        }
-        if (trimmed.startsWith("- ")) {
-          flushParagraph();
-          listItems.push(trimmed.slice(2));
-          continue;
-        }
-        flushList();
-        paragraph.push(trimmed);
-      }
-
-      flushParagraph();
-      flushList();
-      return parts.join("");
-    }
-
-    function extractTitle(markdown) {
-      const match = markdown.match(/^#\s+(.+)$/m);
-      return match ? match[1].trim() : "Article";
     }
 
     function formatTimestamp(value) {
@@ -202,6 +258,104 @@
         hour: "numeric",
         minute: "2-digit"
       });
+    }
+
+    function titleCase(value) {
+      return value
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+    }
+
+    function pickVerb(seed) {
+      let total = 0;
+      for (const char of seed) {
+        total += char.charCodeAt(0);
+      }
+      return VERBS[total % VERBS.length];
+    }
+
+    function buildHeadline(topic, slug) {
+      const cleanTopic = topic.trim();
+      const verb = pickVerb(slug || cleanTopic);
+      if (cleanTopic.split(" ").length <= 3) {
+        return `${cleanTopic.toUpperCase()} SURGES IN ONLINE SEARCHES`;
+      }
+      return `${cleanTopic.toUpperCase()} ${verb.toUpperCase()} ONLINE`;
+    }
+
+    function parseSections(markdown) {
+      const sections = {};
+      let current = null;
+      for (const line of markdown.split(/\r?\n/)) {
+        if (line.startsWith("## ")) {
+          current = line.slice(3).trim();
+          sections[current] = [];
+          continue;
+        }
+        if (current) {
+          sections[current].push(line);
+        }
+      }
+      return sections;
+    }
+
+    function extractTitle(markdown) {
+      const match = markdown.match(/^#\s+(.+)$/m);
+      return match ? match[1].trim() : "Article";
+    }
+
+    function findPrimarySource(text) {
+      if (text.includes("google_trends")) {
+        return { label: "Google Trends", phrase: "search activity" };
+      }
+      if (text.includes("wikipedia")) {
+        return { label: "Wikipedia", phrase: "pageview traffic" };
+      }
+      if (text.includes("reddit")) {
+        return { label: "Reddit", phrase: "discussion activity" };
+      }
+      return { label: "Public data", phrase: "online attention" };
+    }
+
+    function extractVelocity(text) {
+      const match = text.match(/velocity `([\d.]+)`/i);
+      return match ? match[1] : "N/A";
+    }
+
+    function buildHook(topic, sourceInfo) {
+      return `Online interest in ${topic} is rapidly climbing, with new data showing a sharp spike in ${sourceInfo.phrase}.`;
+    }
+
+    function buildSubheadline(topic, sourceInfo) {
+      return `${sourceInfo.label} is driving a fresh burst of attention around ${topic}.`;
+    }
+
+    function buildKnowList(topic, sourceInfo, evidenceCount) {
+      return [
+        `Attention around ${topic} is climbing quickly.`,
+        `${sourceInfo.label} is showing the strongest current signal.`,
+        `${evidenceCount} tracked signal${evidenceCount === 1 ? "" : "s"} point to rising visibility.`
+      ];
+    }
+
+    function cleanTimelineLine(line) {
+      return line
+        .replace(/`/g, "")
+        .replace(/\(using the canonical topic label\)/gi, "")
+        .replace(/normalized /gi, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function cleanParagraph(text) {
+      return text
+        .replace(/Observed activity suggests/gi, "Attention data shows")
+        .replace(/using the canonical topic label/gi, "")
+        .replace(/normalized velocity/gi, "velocity")
+        .replace(/\s+/g, " ")
+        .trim();
     }
 
     async function loadArticle() {
@@ -219,30 +373,85 @@
         fetch(`./posts/${encodeURIComponent(slug)}.md`, { cache: "no-store" })
       ]);
 
-      if (!indexResponse.ok) {
-        throw new Error(`Index request failed with ${indexResponse.status}`);
-      }
-      if (!articleResponse.ok) {
-        throw new Error(`Article request failed with ${articleResponse.status}`);
+      if (!indexResponse.ok || !articleResponse.ok) {
+        throw new Error("Could not load article resources");
       }
 
       const entries = await indexResponse.json();
       const markdown = await articleResponse.text();
       const entry = Array.isArray(entries) ? entries.find((item) => item.slug === slug) : null;
-      const title = entry?.title || extractTitle(markdown);
+      const sections = parseSections(markdown);
+      const rawTitle = entry?.title || extractTitle(markdown);
+      const topic = titleCase(rawTitle.replace(/[-_]+/g, " "));
+      const summaryText = (sections["Summary"] || []).join(" ").trim();
+      const evidenceLines = (sections["Evidence"] || []).filter((line) => line.trim().startsWith("- "));
+      const timelineLines = (sections["Timeline of Emergence"] || []).filter((line) => line.trim().startsWith("- "));
+      const sourceInfo = findPrimarySource(`${summaryText} ${evidenceLines.join(" ")}`);
+      const peakVelocity = extractVelocity(`${summaryText} ${evidenceLines.join(" ")}`);
+      const hook = buildHook(topic, sourceInfo);
+      const subheadline = buildSubheadline(topic, sourceInfo);
+      const knowList = buildKnowList(topic, sourceInfo, evidenceLines.length || 1);
+      const currentState = cleanParagraph((sections["What Is Currently Happening"] || []).join(" ").trim());
+      const relatedContext = cleanParagraph((sections["Related Context"] || []).join(" ").trim());
+      const displayHeadline = buildHeadline(topic, slug);
 
-      document.title = `${title} | Viral Public Data`;
+      document.title = `${displayHeadline} | Viral Public Data`;
       container.innerHTML = `
-        <h1>${title}</h1>
+        <div class="eyebrow">Breaking Trend</div>
+        <h1 class="headline">${escapeHtml(displayHeadline)}</h1>
+        <p class="subheadline">${escapeHtml(subheadline)}</p>
         <div class="meta">${entry ? formatTimestamp(entry.timestamp) : ""}</div>
-        <div class="content">${renderMarkdown(markdown)}</div>
+        <p class="hook">${escapeHtml(hook)}</p>
+        <div class="article-body">
+          <div class="main-copy">
+            <section>
+              <h2 class="section-title">What We Know</h2>
+              <ul class="list">
+                ${knowList.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+              </ul>
+            </section>
+            <section>
+              <p>${escapeHtml(currentState || `${topic} is drawing heavier attention as the latest signals continue to build.`)}</p>
+              <p>${escapeHtml(relatedContext || `The topic is moving quickly online as fresh public data keeps the story in front of viewers.`)}</p>
+            </section>
+            <section>
+              <h2 class="section-title">Timeline</h2>
+              <ul class="list">
+                ${timelineLines.map((line) => `<li>${escapeHtml(cleanTimelineLine(line.slice(2)))}</li>`).join("")}
+              </ul>
+            </section>
+          </div>
+          <aside class="sidebar">
+            <section class="numbers-box">
+              <h2 class="section-title">By The Numbers</h2>
+              <dl>
+                <div>
+                  <dt>Peak Velocity</dt>
+                  <dd>${escapeHtml(peakVelocity)}</dd>
+                </div>
+                <div>
+                  <dt>Primary Source</dt>
+                  <dd>${escapeHtml(sourceInfo.label)}</dd>
+                </div>
+                <div>
+                  <dt>Signals Detected</dt>
+                  <dd>${escapeHtml(String(evidenceLines.length || 1))}</dd>
+                </div>
+              </dl>
+            </section>
+            <section class="panel">
+              <h2 class="section-title">Quick Take</h2>
+              <p>${escapeHtml(`${topic} is pulling in fresh attention and the strongest push is coming from ${sourceInfo.phrase}.`)}</p>
+            </section>
+          </aside>
+        </div>
       `;
     }
 
     loadArticle().catch((error) => {
       console.error(error);
       document.getElementById("article").innerHTML =
-        '<div class="message">The requested article could not be loaded from this repository.</div>';
+        '<div class="message">The requested story could not be loaded from this repository.</div>';
     });
   </script>
 </body>
