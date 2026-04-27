@@ -91,6 +91,10 @@ def _decode_json_content(encoded_content: str) -> Any:
     return json.loads(raw)
 
 
+def _decode_text_content(encoded_content: str) -> str:
+    return base64.b64decode(encoded_content.encode("utf-8")).decode("utf-8")
+
+
 def file_exists_check(
     repo: str,
     token: str,
@@ -108,6 +112,29 @@ def file_exists_check(
         return None
     response.raise_for_status()
     return response.json()
+
+
+def _load_existing_index_entries(
+    repo: str,
+    token: str,
+    *,
+    branch: str = "main",
+    index_path: str = "index.json",
+    session: Any = requests,
+) -> tuple[list[dict[str, Any]], str | None]:
+    existing_index = file_exists_check(repo, token, index_path, branch=branch, session=session)
+    existing_entries: list[dict[str, Any]] = []
+    existing_sha: str | None = None
+
+    if existing_index:
+        existing_sha = existing_index.get("sha")
+        encoded_content = existing_index.get("content")
+        if encoded_content:
+            decoded = _decode_json_content(encoded_content)
+            if isinstance(decoded, list):
+                existing_entries = [item for item in decoded if isinstance(item, dict)]
+
+    return existing_entries, existing_sha
 
 
 def publish_file(
@@ -160,17 +187,13 @@ def update_index(
     index_path: str = "index.json",
     session: Any = requests,
 ) -> list[dict[str, Any]]:
-    existing_index = file_exists_check(repo, token, index_path, branch=branch, session=session)
-    existing_entries: list[dict[str, Any]] = []
-    existing_sha: str | None = None
-
-    if existing_index:
-        existing_sha = existing_index.get("sha")
-        encoded_content = existing_index.get("content")
-        if encoded_content:
-            decoded = _decode_json_content(encoded_content)
-            if isinstance(decoded, list):
-                existing_entries = [item for item in decoded if isinstance(item, dict)]
+    existing_entries, existing_sha = _load_existing_index_entries(
+        repo,
+        token,
+        branch=branch,
+        index_path=index_path,
+        session=session,
+    )
 
     merged: dict[str, dict[str, Any]] = {str(item.get("slug")): item for item in existing_entries if item.get("slug")}
     for entry in entries:
@@ -193,6 +216,63 @@ def update_index(
     )
     response.raise_for_status()
     return ordered_entries
+
+
+def refresh_remote_index_from_posts(
+    repo: str,
+    token: str,
+    *,
+    branch: str = "main",
+    index_path: str = "index.json",
+    session: Any = requests,
+) -> list[dict[str, Any]]:
+    existing_entries, existing_sha = _load_existing_index_entries(
+        repo,
+        token,
+        branch=branch,
+        index_path=index_path,
+        session=session,
+    )
+    refreshed_entries: list[dict[str, Any]] = []
+
+    for entry in existing_entries:
+        path = str(entry.get("path") or "")
+        if not path:
+            refreshed_entries.append(entry)
+            continue
+
+        remote_post = file_exists_check(repo, token, path, branch=branch, session=session)
+        if not remote_post or not remote_post.get("content"):
+            refreshed_entries.append(entry)
+            continue
+
+        markdown = _decode_text_content(remote_post["content"])
+        refreshed_entries.append(
+            {
+                "title": _extract_title(markdown, fallback=str(entry.get("title") or entry.get("slug") or "Article")),
+                "slug": str(entry.get("slug") or _slugify(Path(path).stem)),
+                "summary": _extract_summary(markdown),
+                "timestamp": entry.get("timestamp"),
+                "path": path,
+            }
+        )
+
+    payload = {
+        "message": f"auto: refresh article index {datetime.now(timezone.utc).isoformat()}",
+        "content": base64.b64encode(json.dumps(refreshed_entries, indent=2).encode("utf-8")).decode("utf-8"),
+        "branch": branch,
+    }
+    if existing_sha:
+        payload["sha"] = existing_sha
+
+    response = session.put(
+        _contents_url(repo, index_path),
+        headers=_headers(token),
+        json=payload,
+        timeout=20,
+    )
+    response.raise_for_status()
+    return refreshed_entries
 
 
 def sync_repository_file(
