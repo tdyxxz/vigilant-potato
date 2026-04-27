@@ -453,8 +453,12 @@ def main() -> None:
             logging.info("Publish-only command completed with %s published article(s)", len(published_entries))
             return
         if args.command == "sync-repo":
-            synced_paths = sync_runtime_files(Path("."))
-            logging.info("Repo sync completed with %s file(s)", len(synced_paths))
+            sync_result = sync_runtime_files(Path("."))
+            logging.info(
+                "Repo sync completed with %s synced file(s) and %s failed file(s)",
+                len(sync_result["synced_paths"]),
+                len(sync_result["failed_paths"]),
+            )
             return
 
         raw_signals: list[dict] = []
