@@ -1,5 +1,12 @@
 [
   {
+    "title": "Silver Surges in Online Searches",
+    "slug": "silver",
+    "summary": "Online interest in silver is climbing sharply, with new data showing a clear jump in search interest.",
+    "timestamp": "2026-04-27T18:44:05.077038+00:00",
+    "path": "posts/silver.md"
+  },
+  {
     "title": "Tzumi Fitrx Dumbbell Recall",
     "slug": "tzumi-fitrx-dumbbell-recall",
     "summary": "Observed activity suggests `tzumi fitrx dumbbell recall` is accelerating across 1 source(s). The strongest measured signal currently comes from `google_trends` with normalized velocity `0.8889`.",
