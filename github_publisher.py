@@ -229,29 +229,34 @@ def sync_runtime_files(
     token: str | None = None,
     branch: str = "main",
     session: Any = requests,
-) -> list[str]:
+) -> dict[str, list[str]]:
     resolved_repo = repo or os.getenv("PUBLISH_REPO")
     resolved_token = token or os.getenv("GH_PUBLISH_TOKEN")
     if not resolved_repo or not resolved_token:
         raise RuntimeError("GitHub repo sync is not configured; expected GH_PUBLISH_TOKEN and PUBLISH_REPO")
 
     synced_paths: list[str] = []
+    failed_paths: list[str] = []
     for relative_path in RUNTIME_SYNC_PATHS:
         local_path = base_dir / relative_path
         if not local_path.exists():
             raise RuntimeError(f"Runtime sync source file does not exist: {local_path.as_posix()}")
-        synced_paths.append(
-            sync_repository_file(
-                local_path,
-                resolved_repo,
-                resolved_token,
-                remote_path=relative_path,
-                branch=branch,
-                session=session,
+        try:
+            synced_paths.append(
+                sync_repository_file(
+                    local_path,
+                    resolved_repo,
+                    resolved_token,
+                    remote_path=relative_path,
+                    branch=branch,
+                    session=session,
+                )
             )
-        )
+        except requests.RequestException as exc:
+            failed_paths.append(relative_path)
+            logging.warning("GitHub repo sync failed for %s: %s", relative_path, exc)
 
-    return synced_paths
+    return {"synced_paths": synced_paths, "failed_paths": failed_paths}
 
 
 def publish_generated_articles(
