@@ -316,6 +316,52 @@
       return sections;
     }
 
+    function extractSubheadline(markdown) {
+      const lines = markdown.split(/\r?\n/);
+      let seenTitle = false;
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          continue;
+        }
+        if (!seenTitle && trimmed.startsWith("# ")) {
+          seenTitle = true;
+          continue;
+        }
+        if (seenTitle && !trimmed.startsWith("## ")) {
+          return trimmed;
+        }
+      }
+      return "";
+    }
+
+    function splitParagraphs(lines) {
+      const paragraphs = [];
+      let current = [];
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          if (current.length > 0) {
+            paragraphs.push(current.join(" "));
+            current = [];
+          }
+          continue;
+        }
+        if (trimmed.startsWith("- ")) {
+          if (current.length > 0) {
+            paragraphs.push(current.join(" "));
+            current = [];
+          }
+          continue;
+        }
+        current.push(trimmed);
+      }
+      if (current.length > 0) {
+        paragraphs.push(current.join(" "));
+      }
+      return paragraphs;
+    }
+
     function extractTitle(markdown) {
       const match = markdown.match(/^#\s+(.+)$/m);
       return match ? match[1].trim() : "Article";
@@ -337,26 +383,6 @@
     function extractVelocity(text) {
       const match = text.match(/velocity `([\d.]+)`/i);
       return match ? match[1] : "N/A";
-    }
-
-    function buildHook(topic, sourceInfo) {
-      if (topic.toLowerCase().includes("recall")) {
-        return `Online interest in the ${topic} story is climbing fast, with fresh data showing a sharp rise in ${sourceInfo.phrase}.`;
-      }
-      if (isLikelyPersonName(topic)) {
-        return `${topic} is back in the online spotlight, with new data showing a rapid jump in ${sourceInfo.phrase}.`;
-      }
-      return `Online interest in ${topic} is rapidly climbing, with new data showing a sharp spike in ${sourceInfo.phrase}.`;
-    }
-
-    function buildSubheadline(topic, sourceInfo) {
-      if (topic.toLowerCase().includes("recall")) {
-        return `${sourceInfo.label} is helping push the recall story back into the headlines.`;
-      }
-      if (isLikelyPersonName(topic)) {
-        return `${sourceInfo.label} is fueling a fresh burst of attention around ${topic}.`;
-      }
-      return `${sourceInfo.label} is driving a fresh burst of attention around ${topic}.`;
     }
 
     function buildKnowList(topic, sourceInfo, evidenceCount) {
@@ -410,16 +436,26 @@
       const sections = parseSections(markdown);
       const rawTitle = entry?.title || extractTitle(markdown);
       const topic = titleCase(rawTitle.replace(/[-_]+/g, " "));
+      const authoredSubheadline = extractSubheadline(markdown);
       const summaryText = (sections["Summary"] || []).join(" ").trim();
+      const summaryParagraphs = splitParagraphs(sections["Summary"] || []);
+      const currentParagraphs = splitParagraphs(sections["What Is Currently Happening"] || []);
+      const relatedParagraphs = splitParagraphs(sections["Related Context"] || []);
       const evidenceLines = (sections["Evidence"] || []).filter((line) => line.trim().startsWith("- "));
+      const knowLines = (sections["What to Know"] || []).filter((line) => line.trim().startsWith("- "));
       const timelineLines = (sections["Timeline of Emergence"] || []).filter((line) => line.trim().startsWith("- "));
       const sourceInfo = findPrimarySource(`${summaryText} ${evidenceLines.join(" ")}`);
       const peakVelocity = extractVelocity(`${summaryText} ${evidenceLines.join(" ")}`);
-      const hook = buildHook(topic, sourceInfo);
-      const subheadline = buildSubheadline(topic, sourceInfo);
-      const knowList = buildKnowList(topic, sourceInfo, evidenceLines.length || 1);
-      const currentState = cleanParagraph((sections["What Is Currently Happening"] || []).join(" ").trim());
-      const relatedContext = cleanParagraph((sections["Related Context"] || []).join(" ").trim());
+      const subheadline = authoredSubheadline || `${sourceInfo.label} is driving fresh attention around ${topic}.`;
+      const hook = summaryParagraphs[0] || `Online interest in ${topic} is rapidly climbing.`;
+      const supportingParagraphs = [
+        ...summaryParagraphs.slice(1),
+        ...currentParagraphs,
+        ...relatedParagraphs,
+      ].map(cleanParagraph).filter(Boolean);
+      const knowList = knowLines.length > 0
+        ? knowLines.map((line) => cleanTimelineLine(line.slice(2)))
+        : buildKnowList(topic, sourceInfo, evidenceLines.length || 1);
       const displayHeadline = buildHeadline(topic, slug);
 
       document.title = `${displayHeadline} | Viral Public Data`;
@@ -438,8 +474,10 @@
               </ul>
             </section>
             <section>
-              <p>${escapeHtml(currentState || `${topic} is drawing heavier attention as the latest signals continue to build.`)}</p>
-              <p>${escapeHtml(relatedContext || `The topic is moving quickly online as fresh public data keeps the story in front of viewers.`)}</p>
+              ${supportingParagraphs.length > 0
+                ? supportingParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")
+                : `<p>${escapeHtml(`${topic} is drawing heavier attention as the latest signals continue to build.`)}</p>`
+              }
             </section>
             <section>
               <h2 class="section-title">Timeline</h2>
