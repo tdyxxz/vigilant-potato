@@ -1,4 +1,4 @@
-# Nahui Ollin Back in Spotlight as Interest Jumps
+# Nahui Ollin Draws Fresh Search Frenzy
 
 Wikipedia is driving a fresh wave of reader traffic around nahui ollin.
 
@@ -15,7 +15,7 @@ For now, the clearest sign of momentum is coming from Wikipedia, where the lates
 - The topic is being picked up across 1 source.
 
 ## Timeline of Emergence
-- 2026-04-26 00:00 UTC: Wikipedia showed a fresh rise in reader traffic.
+- 2026-04-29 00:00 UTC: Wikipedia showed a fresh rise in reader traffic.
 
 ## Evidence
 - Wikipedia was one of the clearest signs of fresh attention around nahui ollin.
