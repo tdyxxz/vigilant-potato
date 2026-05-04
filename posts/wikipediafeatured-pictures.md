@@ -15,7 +15,7 @@ The strongest visible movement is coming from Wikipedia, where the latest jump i
 - The topic is being picked up across 1 source.
 
 ## Timeline of Emergence
-- 2026-05-02 00:00 UTC: Wikipedia showed a fresh rise in reader traffic.
+- 2026-05-03 00:00 UTC: Wikipedia showed a fresh rise in reader traffic.
 
 ## Evidence
 - Wikipedia was one of the clearest signs of fresh attention around wikipediafeatured pictures.
