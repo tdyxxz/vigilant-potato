@@ -43,134 +43,142 @@ SOURCE_DESCRIPTIONS = {
 SPORTS_MARKERS = {"vs", "v", "at"}
 COMPANY_MARKERS = {"energy", "bank", "airlines", "group", "inc", "corp", "company", "holdings"}
 PERSON_HEADLINE_PATTERNS = (
-    "{topic} Back in Spotlight as Interest Jumps",
-    "{topic} Suddenly Surges Back Into Focus",
-    "{topic} Draws Fresh Search Frenzy",
+    "{topic} Is Suddenly Everywhere - Here's Why",
+    "The {topic} Hype Is Real - Here's What's Behind It",
+    "Everyone's Talking About {topic} - Here's The Story",
+    "{topic} Just Blew Up - Here's What You Need To Know",
+    "Why {topic} Is Suddenly Taking Over Your Feed",
 )
 RECALL_HEADLINE_PATTERNS = (
-    "{topic} Gains Traction Online",
-    "{topic} Sparks Fresh Online Attention",
-    "{topic} Surges Back Into Conversation",
+    "{topic} Recall: What You Need To Know Right Now",
+    "Breaking: {topic} Safety Alert - Consumer Warning",
+    "{topic} Recall Spreads - Here's Who's Affected",
+    "Urgent {topic} Recall Update - Check Your Items Now",
 )
 MATCHUP_HEADLINE_PATTERNS = (
-    "{topic} Draws Fresh Buzz Online",
-    "{topic} Suddenly Heats Up Online",
-    "{topic} Grabs New Attention Fast",
+    "{topic}: The Game Everyone's Watching",
+    "{topic} Is Breaking The Internet - Here's Why",
+    "Can't Miss This {topic} Showdown - Here's The Buzz",
+    "{topic} Has Fans Going Wild - Here's The Drama",
 )
 COMPANY_HEADLINE_PATTERNS = (
-    "{topic} Draws New Attention Online",
-    "{topic} Suddenly Climbs in Searches",
-    "{topic} Back in Focus After Search Spike",
+    "{topic} Is Suddenly Headline News - Here's What Happened",
+    "Breaking: {topic} Shakes Up The Industry",
+    "{topic} Just Made A Major Move - Here's The Impact",
+    "Why {topic} Is Suddenly Everyone's Business",
 )
 DEATH_HEADLINE_PATTERNS = (
-    "{topic} Searches Surge Again",
-    "{topic} Back in Search Spotlight",
-    "{topic} Draws Fresh Online Curiosity",
+    "{topic}: The Questions Everyone's Asking Again",
+    "Why {topic} Is Suddenly Trending - The Full Story",
+    "{topic} Mystery Resurfaces - Here's What We Know",
+    "The {topic} Conversation Is Back - Here's Why",
 )
 GENERIC_SEARCH_PATTERNS = (
-    "{topic} Surges in Online Searches",
-    "{topic} Suddenly Jumps in Search Interest",
-    "{topic} Gains Rapid Search Attention",
+    "{topic} Is Suddenly Everywhere - Here's The Story",
+    "Breaking: Why {topic} Is Suddenly Trending",
+    "{topic} Just Exploded Online - Here's What's Going On",
+    "The {topic} Phenomenon - Here's Why It's Viral",
 )
 GENERIC_ATTENTION_PATTERNS = (
-    "{topic} Draws Fresh Online Attention",
-    "{topic} Suddenly Back in Focus",
-    "{topic} Grabs New Attention Online",
+    "{topic} Is Suddenly Breaking The Internet",
+    "Why {topic} Is Suddenly Everyone's Obsession",
+    "{topic} Just Went Viral - Here's The Real Story",
+    "The {topic} Buzz: Here's What's Actually Happening",
 )
 GOOGLE_SUMMARY_PATTERNS = (
-    "Online interest in {topic} is climbing sharply, with new data showing a clear jump in search interest.",
-    "Searches tied to {topic} are moving higher quickly, signaling a fresh burst of public curiosity.",
-    "Fresh search activity is pushing {topic} higher online, suggesting a fast-building wave of attention.",
+    "Something big is happening with {topic} - Google searches are suddenly spiking and everyone wants to know what's going on.",
+    "The internet can't stop searching for {topic} right now - here's what's driving this massive surge of interest.",
+    "{topic} just exploded on Google search trends - we've got the inside scoop on what's behind this viral moment.",
 )
 WIKIPEDIA_SUMMARY_PATTERNS = (
-    "Online interest in {topic} is climbing sharply, with new data showing a clear jump in reader traffic.",
-    "Reader traffic around {topic} is rising fast, pointing to a new burst of public curiosity.",
-    "Fresh pageview activity is pushing {topic} back into focus, suggesting that curiosity is building quickly.",
+    "Everyone's suddenly rushing to read about {topic} on Wikipedia - here's why this topic is blowing up right now.",
+    "{topic} Wikipedia pages are getting hammered with traffic - something major is happening and people need answers.",
+    "Massive spike in {topic} Wikipedia readership - here's the story behind this sudden surge of interest.",
 )
 REDDIT_SUMMARY_PATTERNS = (
-    "Online attention around {topic} is climbing sharply, with new discussion showing a fast rise in public interest.",
-    "Conversation tied to {topic} is heating up quickly, suggesting a fresh burst of online attention.",
-    "Fresh discussion momentum is pushing {topic} higher online, pointing to rapidly growing curiosity.",
+    "Reddit is absolutely blowing up with {topic} discussions - here's the viral thread that's got everyone talking.",
+    "{topic} is taking over Reddit right now - we've tracked down the conversations that are breaking the internet.",
+    "From zero to viral: {topic} just exploded across Reddit communities - here's what started this digital wildfire.",
 )
 GENERIC_SUMMARY_PATTERNS = (
-    "Online interest in {topic} is climbing sharply, drawing fresh public curiosity.",
-    "{topic} is suddenly picking up online attention, suggesting a fast-building wave of interest.",
-    "Fresh attention is pushing {topic} back into focus as curiosity rises online.",
+    "{topic} is suddenly everywhere online - here's what's behind this viral moment that's got everyone talking.",
+    "The internet just discovered {topic} and now it's blowing up - we've got the story behind this viral sensation.",
+    "From nowhere to everywhere: {topic} just went viral and here's everything you need to know about this sudden explosion of interest.",
 )
 GOOGLE_SUBHEADLINE_PATTERNS = (
-    "{source} is driving a fresh wave of {description} around {topic}.",
-    "{source} is pushing new attention toward {topic} as interest builds fast.",
-    "{source} is fueling a fresh burst of curiosity around {topic}.",
+    "Google searches for {topic} are going absolutely viral right now - here's what's driving this explosion.",
+    "Everyone's suddenly Googling {topic} - we've got the data behind this massive search surge.",
+    "Google trends show {topic} is breaking the internet - here's the story behind this viral moment.",
 )
 WIKIPEDIA_SUBHEADLINE_PATTERNS = (
-    "{source} is driving a fresh wave of {description} around {topic}.",
-    "{source} is sending new reader attention toward {topic}.",
-    "{source} is helping push {topic} back into view.",
+    "Wikipedia pages for {topic} are getting absolutely hammered with readers - here's why everyone needs to know.",
+    "Massive traffic spike on {topic} Wikipedia pages - something big is happening and people are scrambling for answers.",
+    "{topic} Wikipedia articles are blowing up - here's the story behind this sudden surge of readers.",
 )
 REDDIT_SUBHEADLINE_PATTERNS = (
-    "{source} is driving a fresh wave of {description} around {topic}.",
-    "{source} is helping push new online chatter around {topic}.",
-    "{source} is fueling a fresh burst of discussion around {topic}.",
+    "Reddit is absolutely on fire with {topic} discussions - here's the viral threads that are breaking the internet.",
+    "{topic} is taking over Reddit right now - we've found the conversations that everyone's talking about.",
+    "From zero to viral: {topic} just exploded across Reddit - here's what started this digital wildfire.",
 )
 GENERIC_SUBHEADLINE_PATTERNS = (
-    "{source} is driving a fresh wave of {description} around {topic}.",
-    "{source} is helping push fresh attention toward {topic}.",
-    "{source} is fueling a new burst of curiosity around {topic}.",
+    "{topic} is suddenly everywhere online - here's what's behind this viral explosion.",
+    "The internet just discovered {topic} and now it's blowing up - here's the real story.",
+    "{topic} just went viral across the web - here's everything you need to know about this sudden explosion.",
 )
 PERSON_CONTEXT_PATTERNS = (
-    "{topic} appears to be a public figure, and the latest rise suggests that name is suddenly back in wide circulation online.",
-    "{topic} appears to be a recognizable public figure, and the new spike suggests the name is moving quickly through online conversation again.",
-    "{topic} appears to be a public figure, with the latest jump pointing to a renewed burst of curiosity around the name.",
+    "{topic} is clearly a major public figure, and this viral spike shows they're back in the spotlight in a huge way.",
+    "The internet can't stop talking about {topic} right now - this person is suddenly everywhere across social media and search.",
+    "{topic} is having a major viral moment - everyone's suddenly searching for info about this public figure.",
 )
 RECALL_CONTEXT_PATTERNS = (
-    "The topic appears to center on a consumer recall, a kind of story that often draws attention when shoppers begin looking for updates, warnings or product details.",
-    "The subject appears tied to a consumer recall, which often starts trending when shoppers scramble for product warnings, updates or safety information.",
-    "The topic appears linked to a product recall, a category that can quickly pick up momentum when consumers start searching for answers.",
+    "This recall alert is spreading like wildfire across the internet - everyone's scrambling to check if they're affected.",
+    "Consumer safety warnings about {topic} are going viral - people everywhere are searching for recall details and safety info.",
+    "The {topic} recall is breaking the internet as shoppers rush to find out what products are affected and what to do next.",
 )
 DEATH_CONTEXT_PATTERNS = (
-    "The spike appears tied to renewed curiosity about the circumstances surrounding {topic}, a pattern that often resurfaces when older stories begin circulating again.",
-    "The rise appears linked to fresh curiosity about {topic}, the kind of attention that often returns when older questions begin moving online again.",
-    "The latest jump appears tied to renewed public curiosity around {topic}, especially when earlier stories begin circulating again.",
+    "The internet is suddenly obsessed with {topic} again - here's what's driving this renewed wave of curiosity.",
+    "Old questions about {topic} are resurfacing in a big way - everyone's suddenly searching for answers again.",
+    "{topic} is back in the spotlight as renewed interest spreads across social media and search platforms.",
 )
 MATCHUP_CONTEXT_PATTERNS = (
-    "The topic appears to reference a sports matchup, which often starts trending when fans look for game-time updates, highlights or sudden shifts in attention around a contest.",
-    "The subject appears to point to a sports matchup, a category that often spikes when fans rush online for updates, reaction or highlights.",
-    "The topic appears tied to a sports contest, the kind of subject that can climb quickly when fan attention suddenly sharpens.",
+    "This game is absolutely breaking the internet right now - fans can't stop talking about {topic} across every platform.",
+    "Sports fans are going absolutely wild for {topic} - this matchup is suddenly everyone's must-watch event.",
+    "The {topic} game is blowing up online as fans rush to find updates, highlights and real-time buzz about this showdown.",
 )
 COMPANY_CONTEXT_PATTERNS = (
-    "The subject appears to involve a company or business name, a category that often rises when customers, investors or local audiences start looking for updates tied to breaking developments.",
-    "The topic appears tied to a company name, the kind of subject that often spikes when customers or local audiences begin searching for fresh developments.",
-    "The subject appears connected to a business or company name, which can gain momentum quickly when people start looking for updates or explanations.",
+    "{topic} is suddenly headline news - something major is happening and everyone needs to know what's going on.",
+    "Business news about {topic} is spreading like wildfire - investors and customers are scrambling for details.",
+    "The internet is exploding with {topic} discussions - this company is suddenly at the center of everyone's attention.",
 )
 ALIAS_CONTEXT_PATTERNS = (
-    "The topic is also appearing under closely related phrasing such as {aliases}, suggesting attention is spreading across multiple versions of the same story.",
-    "The story is also surfacing under related phrasing such as {aliases}, a sign that curiosity is spreading across several versions of the topic.",
-    "Related phrasing such as {aliases} is also picking up attention, suggesting the same story is circulating under multiple labels.",
+    "People are also searching for {aliases} - this story is spreading across multiple keywords and platforms.",
+    "The viral conversation includes {aliases} - showing this story is blowing up under different names and searches.",
+    "Multiple versions like {aliases} are trending - proving this topic has gone completely viral across the web.",
 )
 GENERIC_CONTEXT_PATTERNS = (
-    "It was not immediately clear what pushed {topic} higher, but the subject is drawing broader curiosity across the web.",
-    "The exact trigger behind the latest rise was not immediately obvious, though {topic} is clearly drawing new attention online.",
-    "What pushed {topic} higher was not immediately clear, but the subject is attracting a wider burst of curiosity online.",
+    "Something huge is happening with {topic} right now - the internet is absolutely buzzing and everyone wants answers.",
+    "{topic} just exploded out of nowhere and now it's everywhere - here's what's behind this viral sensation.",
+    "The internet can't stop talking about {topic} - this sudden surge of interest has everyone wondering what's going on.",
 )
 MATCHUP_RELATED_PATTERNS = (
-    "For now, the clearest push is coming from {source}, where the rise in {description} suggests fans are suddenly paying closer attention to the matchup.",
-    "The strongest visible lift is coming from {source}, suggesting fans are zeroing in on the matchup as attention builds.",
-    "Right now, {source} is showing the clearest push, pointing to a fresh rise in fan attention around the matchup.",
+    "The biggest buzz is coming from {source} where fans are going absolutely wild over this {topic} matchup.",
+    "{source} is leading the viral charge as sports fans can't stop talking about this {topic} showdown.",
+    "All eyes are on {source} where this {topic} game is absolutely breaking the internet right now.",
 )
 COMPANY_RELATED_PATTERNS = (
-    "For now, the clearest push is coming from {source}, where the latest jump in {description} suggests new curiosity around the company or its latest developments.",
-    "The strongest visible lift is coming from {source}, suggesting people are searching for new information tied to the company.",
-    "Right now, {source} is showing the clearest push, pointing to a fresh rise in curiosity around the company and its latest developments.",
+    "The biggest surge is coming from {source} where everyone's scrambling for details about {topic}.",
+    "{source} is driving this viral moment as people rush to find out what's happening with {topic}.",
+    "All the buzz is coming from {source} where {topic} is suddenly everyone's top search priority.",
 )
 MULTI_SOURCE_RELATED_PATTERNS = (
-    "The strongest push is currently coming from {source}, while other public data points suggest curiosity is spreading beyond a single corner of the internet.",
-    "The clearest lift is coming from {source}, but other signals suggest the topic is beginning to travel more broadly online.",
-    "{source} is leading the current rise, while other public indicators suggest the story is starting to spread more widely.",
+    "This {topic} story is absolutely exploding across multiple platforms - {source} is leading the charge but it's going viral everywhere.",
+    "The {topic} buzz is spreading like wildfire - {source} is the biggest driver but this story is breaking the entire internet.",
+    "{source} sparked this {topic} viral moment but now it's absolutely everywhere across multiple platforms and communities.",
 )
 SINGLE_SOURCE_RELATED_PATTERNS = (
-    "For now, the clearest sign of momentum is coming from {source}, where the latest rise in {description} suggests organic curiosity rather than a formal announcement.",
-    "The strongest visible movement is coming from {source}, where the latest jump in {description} points to organic curiosity more than a formal event.",
-    "At the moment, {source} is showing the clearest burst of momentum, with the rise in {description} suggesting curiosity is building naturally.",
+    "The entire {topic} viral wave is coming from {source} - this platform is absolutely on fire with this story.",
+    "{source} is the epicenter of this {topic} explosion - everyone's flocking there to see what's happening.",
+    "This {topic} phenomenon started on {source} and it's absolutely breaking records with engagement and interest.",
 )
 
 
@@ -377,27 +385,27 @@ def _build_what_to_know(topic: str, strongest_signal: dict[str, Any] | None, sou
     plain_topic = _plain_topic(topic)
     if strongest_signal is None:
         return [
-            f"Interest around {plain_topic} is rising.",
-            "The reason for the latest spike is not yet clear.",
+            f"{plain_topic} is suddenly trending across multiple platforms.",
+            "Everyone's scrambling to find out what's behind this viral moment.",
         ]
     source_name = _human_source_name(strongest_signal["source"])
     source_description = _source_description(strongest_signal["source"])
     if _looks_like_matchup(plain_topic):
         return [
-            f"Attention around {plain_topic} is moving higher quickly.",
-            f"{source_name} is showing the strongest lift in {source_description}.",
-            "The matchup is drawing renewed fan curiosity online.",
+            f"This {plain_topic} game is absolutely breaking the internet right now.",
+            f"{source_name} is showing massive spikes in {source_description} as fans go wild.",
+            "Sports betting sites and fan forums are also blowing up with this matchup.",
         ]
     if _looks_like_company(plain_topic):
         return [
-            f"Attention around {plain_topic} is rising quickly.",
-            f"{source_name} is showing the strongest lift in {source_description}.",
-            "The company name is drawing fresh online curiosity.",
+            f"{plain_topic} is suddenly headline news across every platform.",
+            f"{source_name} is driving massive {source_description} as investors and customers scramble for details.",
+            "Stock forums and business news sites are also covering this heavily.",
         ]
     return [
-        f"Attention around {plain_topic} is increasing quickly.",
-        f"{source_name} is showing the strongest jump in {source_description}.",
-        f"The topic is being picked up across {len(source_counts)} source{'s' if len(source_counts) != 1 else ''}.",
+        f"{plain_topic} just exploded online and everyone's talking about it.",
+        f"{source_name} is showing massive spikes in {source_description} right now.",
+        f"This story is trending across {len(source_counts)} major platform{'s' if len(source_counts) != 1 else ''}.",
     ]
 
 
@@ -407,14 +415,14 @@ def _timeline_line(topic: str, signal: dict[str, Any]) -> str:
     observed_topic = _plain_topic(str(signal["topic"]))
     plain_topic = _plain_topic(topic)
     if observed_topic != plain_topic:
-        return f"- {_format_timestamp(signal['timestamp'])}: {source_name} helped push interest higher around {observed_topic}."
-    return f"- {_format_timestamp(signal['timestamp'])}: {source_name} showed a fresh rise in {source_description}."
+        return f"- {_format_timestamp(signal['timestamp'])}: {source_name} helped spark viral interest around {observed_topic}."
+    return f"- {_format_timestamp(signal['timestamp'])}: {source_name} showed massive spike in {source_description} that started this viral wave."
 
 
 def _evidence_line(evidence_item: dict[str, Any]) -> str:
     source_name = _human_source_name(evidence_item["source"])
     observed_topic = _plain_topic(str(evidence_item["observed_topic"]))
-    return f"- {source_name} was one of the clearest signs of fresh attention around {observed_topic}."
+    return f"- {source_name} was one of the first platforms to break this {observed_topic} viral story."
 
 
 def _build_current_state(
