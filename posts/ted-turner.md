@@ -15,7 +15,7 @@ Wikipedia is the epicenter of this ted turner explosion - everyone's flocking th
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-05-06 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
+- 2026-05-07 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this ted turner viral story.
