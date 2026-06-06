@@ -15,7 +15,7 @@ The entire criminal defense lawyer viral wave is coming from Google Trends - thi
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-01 09:14 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-06 09:55 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this criminal defense lawyer viral story.
