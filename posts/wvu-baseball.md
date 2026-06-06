@@ -7,7 +7,7 @@ wvu baseball just exploded on Google search trends - we've got the inside scoop 
 
 wvu baseball is having a major viral moment - everyone's suddenly searching for info about this public figure.
 
-This wvu baseball phenomenon started on Google Trends and it's absolutely breaking records with engagement and interest.
+Google Trends sparked this wvu baseball viral moment but now it's absolutely everywhere across multiple platforms and communities.
 
 ## What to Know
 - wvu baseball just exploded online and everyone's talking about it.
@@ -15,7 +15,9 @@ This wvu baseball phenomenon started on Google Trends and it's absolutely breaki
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-05-29 21:46 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-06 17:01 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-06 17:01 UTC: Google Trends helped spark viral interest around wvu baseball score.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this wvu baseball viral story.
+- Google Trends was one of the first platforms to break this wvu baseball score viral story.
