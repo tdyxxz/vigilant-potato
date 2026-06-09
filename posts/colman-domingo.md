@@ -15,7 +15,7 @@ This colman domingo phenomenon started on Google Trends and it's absolutely brea
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-01 02:49 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-09 10:53 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this colman domingo viral story.
