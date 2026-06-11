@@ -5,7 +5,7 @@ Wikipedia pages for 2026 fifa world cup are getting absolutely hammered with rea
 ## Summary
 Everyone's suddenly rushing to read about 2026 fifa world cup on Wikipedia - here's why this topic is blowing up right now.
 
-People are also searching for fifa world cup standings, fifa world cup - this story is spreading across multiple keywords and platforms.
+People are also searching for seattle world cup games, fifa world cup - this story is spreading across multiple keywords and platforms.
 
 This 2026 fifa world cup story is absolutely exploding across multiple platforms - Wikipedia is leading the charge but it's going viral everywhere.
 
@@ -17,9 +17,9 @@ This 2026 fifa world cup story is absolutely exploding across multiple platforms
 ## Timeline of Emergence
 - 2026-06-10 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
 - 2026-06-10 00:00 UTC: Wikipedia helped spark viral interest around fifa world cup.
-- 2026-06-11 13:53 UTC: Google Trends helped spark viral interest around fifa world cup standings.
+- 2026-06-11 20:11 UTC: Google Trends helped spark viral interest around seattle world cup games.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this 2026 fifa world cup viral story.
 - Wikipedia was one of the first platforms to break this fifa world cup viral story.
-- Google Trends was one of the first platforms to break this fifa world cup standings viral story.
+- Google Trends was one of the first platforms to break this seattle world cup games viral story.
