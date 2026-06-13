@@ -15,7 +15,7 @@ Google Trends is the epicenter of this mormon church explosion - everyone's floc
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-05-30 06:40 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-13 10:22 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this mormon church viral story.
