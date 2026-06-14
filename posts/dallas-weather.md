@@ -15,7 +15,7 @@ This dallas weather phenomenon started on Google Trends and it's absolutely brea
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-02 22:17 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-14 13:42 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this dallas weather viral story.
