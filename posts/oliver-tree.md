@@ -15,7 +15,7 @@ This oliver tree phenomenon started on Wikipedia and it's absolutely breaking re
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-15 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
+- 2026-06-16 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this oliver tree viral story.
