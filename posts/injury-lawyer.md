@@ -15,7 +15,7 @@ The entire injury lawyer viral wave is coming from Google Trends - this platform
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-05-24 09:09 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-06-20 10:27 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this injury lawyer viral story.
