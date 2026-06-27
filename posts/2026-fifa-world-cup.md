@@ -15,9 +15,9 @@ This 2026 fifa world cup story is absolutely exploding across multiple platforms
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-25 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
-- 2026-06-25 00:00 UTC: Wikipedia helped spark viral interest around 2026 fifa world cup knockout stage.
-- 2026-06-25 00:00 UTC: Wikipedia helped spark viral interest around fifa world cup.
+- 2026-06-26 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
+- 2026-06-26 00:00 UTC: Wikipedia helped spark viral interest around 2026 fifa world cup knockout stage.
+- 2026-06-26 00:00 UTC: Wikipedia helped spark viral interest around fifa world cup.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this 2026 fifa world cup viral story.
