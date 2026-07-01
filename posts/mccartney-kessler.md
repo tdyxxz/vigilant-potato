@@ -15,7 +15,7 @@ Google Trends is the epicenter of this mccartney kessler explosion - everyone's 
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-05-07 21:17 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-01 12:27 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this mccartney kessler viral story.
