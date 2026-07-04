@@ -15,7 +15,7 @@ Wikipedia is the epicenter of this wikipediafeatured pictures explosion - everyo
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-02 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
+- 2026-07-03 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this wikipediafeatured pictures viral story.
