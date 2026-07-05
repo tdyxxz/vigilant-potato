@@ -15,8 +15,8 @@ This cape verde story is absolutely exploding across multiple platforms - Wikipe
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-03 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
-- 2026-07-03 00:00 UTC: Wikipedia helped spark viral interest around cape verde national football team.
+- 2026-07-04 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
+- 2026-07-04 00:00 UTC: Wikipedia helped spark viral interest around cape verde national football team.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this cape verde viral story.
