@@ -15,7 +15,7 @@ This luis suárez phenomenon started on Google Trends and it's absolutely breaki
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-04 02:03 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-07 19:43 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this luis suárez viral story.
