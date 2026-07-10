@@ -15,7 +15,7 @@ Google Trends is the epicenter of this wimbeldon explosion - everyone's flocking
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-08 17:26 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-10 14:02 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this wimbeldon viral story.
