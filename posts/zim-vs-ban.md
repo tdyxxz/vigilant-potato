@@ -15,7 +15,7 @@ All eyes are on Google Trends where this zim vs ban game is absolutely breaking 
 - Sports betting sites and fan forums are also blowing up with this matchup.
 
 ## Timeline of Emergence
-- 2026-06-28 07:44 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-11 07:42 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this zim vs ban viral story.
