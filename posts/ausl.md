@@ -15,7 +15,7 @@ This ausl phenomenon started on Google Trends and it's absolutely breaking recor
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-21 17:20 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-11 18:47 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this ausl viral story.
