@@ -15,7 +15,7 @@ This earthquake near me phenomenon started on Google Trends and it's absolutely 
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-05-23 07:59 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-12 11:05 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this earthquake near me viral story.
