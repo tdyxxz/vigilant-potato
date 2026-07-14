@@ -15,7 +15,7 @@ This olivia miles phenomenon started on Google Trends and it's absolutely breaki
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-20 02:35 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-14 01:43 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this olivia miles viral story.
