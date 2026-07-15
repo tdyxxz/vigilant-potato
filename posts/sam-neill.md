@@ -7,7 +7,7 @@ Everyone's suddenly rushing to read about sam neill on Wikipedia - here's why th
 
 sam neill is clearly a major public figure, and this viral spike shows they're back in the spotlight in a huge way.
 
-This sam neill story is absolutely exploding across multiple platforms - Wikipedia is leading the charge but it's going viral everywhere.
+The entire sam neill viral wave is coming from Wikipedia - this platform is absolutely on fire with this story.
 
 ## What to Know
 - sam neill just exploded online and everyone's talking about it.
@@ -15,9 +15,7 @@ This sam neill story is absolutely exploding across multiple platforms - Wikiped
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-13 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
-- 2026-07-13 00:00 UTC: Wikipedia helped spark viral interest around sam neill filmography.
+- 2026-07-14 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this sam neill viral story.
-- Wikipedia was one of the first platforms to break this sam neill filmography viral story.
