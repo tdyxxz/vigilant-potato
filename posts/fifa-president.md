@@ -15,7 +15,7 @@ This fifa president phenomenon started on Google Trends and it's absolutely brea
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-18 02:46 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-15 20:50 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this fifa president viral story.
