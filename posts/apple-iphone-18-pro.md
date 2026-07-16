@@ -15,7 +15,7 @@ Google Trends is the epicenter of this apple iphone 18 pro explosion - everyone'
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-13 08:51 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-16 04:53 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this apple iphone 18 pro viral story.
