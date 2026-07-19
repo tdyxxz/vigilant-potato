@@ -15,7 +15,7 @@ Google Trends is the epicenter of this cloud explosion - everyone's flocking the
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-26 07:42 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-19 08:01 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this cloud viral story.
