@@ -15,11 +15,17 @@ This 2026 fifa world cup story is absolutely exploding across multiple platforms
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-15 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
-- 2026-07-15 00:00 UTC: Wikipedia helped spark viral interest around list of fifa world cup finals.
-- 2026-07-15 00:00 UTC: Wikipedia helped spark viral interest around fifa world cup.
+- 2026-07-19 00:00 UTC: Wikipedia showed massive spike in reader traffic that started this viral wave.
+- 2026-07-19 00:00 UTC: Wikipedia helped spark viral interest around list of fifa world cup finals.
+- 2026-07-19 00:00 UTC: Wikipedia helped spark viral interest around fifa world cup.
+- 2026-07-19 00:00 UTC: Wikipedia helped spark viral interest around 2026 fifa world cup final.
+- 2026-07-19 00:00 UTC: Wikipedia helped spark viral interest around list of fifa world cup top goalscorers.
+- 2026-07-19 00:00 UTC: Wikipedia helped spark viral interest around 2030 fifa world cup.
 
 ## Evidence
 - Wikipedia was one of the first platforms to break this 2026 fifa world cup viral story.
 - Wikipedia was one of the first platforms to break this list of fifa world cup finals viral story.
 - Wikipedia was one of the first platforms to break this fifa world cup viral story.
+- Wikipedia was one of the first platforms to break this 2026 fifa world cup final viral story.
+- Wikipedia was one of the first platforms to break this list of fifa world cup top goalscorers viral story.
+- Wikipedia was one of the first platforms to break this 2030 fifa world cup viral story.
