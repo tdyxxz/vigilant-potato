@@ -15,7 +15,7 @@ This car accident attorney phenomenon started on Google Trends and it's absolute
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-06-20 10:27 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-20 06:39 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this car accident attorney viral story.
