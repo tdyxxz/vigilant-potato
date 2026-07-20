@@ -15,7 +15,7 @@ Google Trends is the epicenter of this stock market today explosion - everyone's
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-08 08:10 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-20 06:39 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this stock market today viral story.
