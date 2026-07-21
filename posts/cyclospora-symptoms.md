@@ -15,7 +15,7 @@ This cyclospora symptoms phenomenon started on Google Trends and it's absolutely
 - This story is trending across 1 major platform.
 
 ## Timeline of Emergence
-- 2026-07-20 10:42 UTC: Google Trends showed massive spike in search interest that started this viral wave.
+- 2026-07-21 11:42 UTC: Google Trends showed massive spike in search interest that started this viral wave.
 
 ## Evidence
 - Google Trends was one of the first platforms to break this cyclospora symptoms viral story.
